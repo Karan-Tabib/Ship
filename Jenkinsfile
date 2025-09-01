@@ -3,10 +3,9 @@ pipeline {
     stages {
         stage('Build Web API') {
             steps {
-                dir('ShipmanagementAPI') {
-                    sh 'dotnet restore'
-                    sh 'dotnet build -c Release'
-                    sh 'dotnet test'
+                dir('ShipmanagementAPI/ShipAPI') {
+                     sh 'dotnet restore ShipmanagementAPI.csproj'
+					 sh 'dotnet build ShipmanagementAPI.csproj -c Release'
                 }
             }
         }

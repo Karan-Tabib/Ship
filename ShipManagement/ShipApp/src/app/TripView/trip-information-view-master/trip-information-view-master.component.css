@@ -1,0 +1,24 @@
+.myDivStyle{
+    height: 225PX; 
+    background-color: rgb(161, 208, 249)
+}
+fieldset{
+    display: block;
+    margin-left: 2px;
+    margin-right: 2px;
+        /* padding-top: 0.35em;
+        padding-bottom: 0.625em;
+        padding-left: 0.75em;
+        padding-right: 0.75em; */
+    border: 5px rgb(0, 72, 255);
+    margin-bottom: 1em !important;
+    border: 1px solid #666 !important;
+    padding:1px !important;
+}
+
+legend {
+    background-color:gray;
+    color: white;
+    padding: 5px 10px;
+  }
+  

@@ -1,0 +1,56 @@
+<div class="container-fluid mt-2" style="background-color: rgba(173, 206, 168, 0.293);">
+    <!-- Boat Selection Dropdown -->
+
+    <div class="row justify-content-center">
+        <div class="col-md-4 col-sm-8 col-10 bg-light p-3 rounded shadow-sm">
+            <select class="form-select" (change)="GetTripInforamtionData($event)">
+                <option value="-1" selected>--Select--</option>
+                <option *ngFor="let boat of boats$|async" [value]="boat.boatId">{{ boat.boatName }}</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Trip Information  -->
+    <div class="row justify-content-center my-3">
+        <div class="col-12  p-3 rounded shadow-sm" style="min-height: 300px;">
+            <fieldset style="min-height: 300px;">
+                <legend>
+                    <h4>Trip Information</h4>
+                </legend>
+                <div>
+                    <app-trip-information-view class="w-100" [boatId]="SelectedBoatId"
+                        (sendSelectedtripIdEvent)="getSelectedTripId($event)">
+                    </app-trip-information-view>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <!-- Trip Particulars -->
+    <div class="row justify-content-center my-3">
+        <div class="col-12 p-3 rounded shadow-sm">
+            <fieldset>
+                <legend>
+                    <h4>Trip Particulars</h4>
+                </legend>
+                <div>
+                    <app-trip-particulars-view class="w-100" [tripId]="selectedTripId"></app-trip-particulars-view>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <!-- Trip Expenditure -->
+    <div class="row justify-content-center my-3">
+        <div class="col-12 p-3 rounded shadow-sm">
+            <fieldset>
+                <legend>
+                    <h4 class="text-center">Trip Expenditure</h4>
+                </legend>
+                <div>
+                    <app-trip-expenditure-view class="w-100" [tripId]="selectedTripId"></app-trip-expenditure-view>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

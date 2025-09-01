@@ -1,0 +1,9 @@
+.selected-row {
+    background-color: #171818 !important; /* Cyan highlight */
+    color: white !important; /* White text for contrast */
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in;
+    
+  }
+  

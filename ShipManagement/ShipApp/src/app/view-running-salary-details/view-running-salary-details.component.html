@@ -1,0 +1,149 @@
+<div style="margin-top: 15px;">
+    <form [formGroup]="frm" (ngSubmit)="AddSalarySummary()">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 myform">
+                <h3 class="text-center mt-2">Add Salary Summary!</h3>
+                <div class="form-group" *ngIf="isVisible()">
+                    <label>ID</label>
+                    <input type="Text" class="form-control" formControlName="Id"
+                        [readonly]="isReadOnly ? true : null" />
+                    <div *ngIf="frm.controls['Id']?.touched && frm.controls['Id']?.errors">
+                        <span class="text-danger"> Id is Invalid.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">Boat Name:</label>
+                    <select class="form-select" [(ngModel)]="SelectedBoatId" formControlName="boatList"
+                        (change)="onBoatSelectionChange($event)">
+                        <option value="-1" selected="true">--Select Boat--</option>
+                        <option *ngFor="let boat of boats$|async" [value]="boat.boatId">{{ boat.boatName }}</option>
+                    </select>
+                    <div *ngIf="frm.controls['boatList']?.touched && frm.controls['boatList']?.errors">
+                        <span class="text-danger"> select Crew Member!</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Crew Member</label>
+                    <select class="form-select" formControlName="CrewMembers" (change)="onCrewSelectionChanged()">
+                        <option value="-1" selected="true">--Select--</option>
+                        <option *ngFor="let crewinfo of crews |filterByBoat:selectedBoat" [value]="crewinfo.crewID">
+                            {{ crewinfo.firstname + " " + crewinfo.middlename + " " + crewinfo.lastname }}
+                        </option>
+                    </select>
+                    <div *ngIf="frm.controls['CrewMembers']?.touched && frm.controls['CrewMembers']?.errors">
+                        <span class="text-danger"> select Crew Member!</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Amount Withdraw</label>
+                    <input type="Text" class="form-control" formControlName="Amount" />
+                    <div *ngIf="frm.controls['Amount']?.touched && frm.controls['Amount']?.errors">
+                        <span class="text-danger"> Enter Total Salary!</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <div class="form-floating">
+                        <textarea class="form-control" formControlName="Description" id="floatingTextarea2"
+                            style="height: 100px"></textarea>
+                        <div *ngIf="frm.controls['Description']?.touched && frm.controls['Description']?.errors">
+                            <span class="text-danger">Address is Mandatory.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Received Date</label>
+                    <input type="date" class="form-control" formControlName="receivedDate" />
+                    <div *ngIf="frm.controls['receivedDate']?.touched && frm.controls['receivedDate']?.errors">
+                        <span class="text-danger"> select Received Date.</span>
+                    </div>
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-primary mt-3 me-3" value="Add Salary" />
+                    <button type="button" class="btn btn-warning mt-3 me-3" value="Update Salary"
+                        (click)="UpdateSalary()">Update Salary</button>
+                    <button type="button" class="btn btn-dark me-3 mt-3" value="Reset"
+                        (click)="ResetForm()">Reset</button>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+<div>
+    <hr />
+</div>
+
+<div class=" border mt-2" style="background-color: rgb(245, 243, 225);">
+    <form [formGroup]="Filterfrm" (ngSubmit)="AddSalarySummary()">
+        <div class="row p-2">
+            <div class="col-md-3"> </div>
+            <div class="col-md-3">
+                <div class="col-auto">
+                    <label class="col-form-label">Boat Name:</label>
+                </div>
+                <div class="col-auto">
+                    <select class="form-select" formControlName="BoatList2" (change)="onBoat2SelectionChange($event)">
+                        <option value="-1" selected="true">--Select Boat--</option>
+                        <option *ngFor="let boat of boats$|async" [value]="boat.boatId">{{ boat.boatName }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-auto">
+                    <label class="col-form-label ">Crew Member:</label>
+                </div>
+                <div class="col-auto">
+                    <select class="form-select" formControlName="crewList2" (change)="onCrewMember2Changed($event)">
+                        <option value="-1" selected="true">--Select Crew--</option>
+                        <option *ngFor="let crewinfo of crews |filterByBoat:selectedBoat2" [value]="crewinfo.crewID">
+                            {{ crewinfo.firstname + " " + crewinfo.middlename + " " + crewinfo.lastname }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <div class="table-responsive-lg ">
+        <table class="table table-warning table-bordered caption-top">
+            <caption><strong><b>List of Salary Information</b></strong></caption>
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Amount withdraw</th>
+                    <th>Description</th>
+                    <th>Received Date</th>
+                    <th>Created Date</th>
+                    <th>Updated Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let sal of salariesSummaries" class="table-secondary">
+                    <td>{{sal.salarySummaryId }}</td>
+                    <td>{{ getCrewMemberName(sal.crewId)}}</td>
+                    <td>{{sal.amountTaken |currency:'RS ' }}</td>
+                    <td>{{sal.description}}</td>
+                    <td>{{sal.receivedDate |date:'dd-MM-yyyy h:mm:ss' }}</td>
+                    <td>{{sal.createdDate |date:'dd-MM-yyyy h:mm:ss'}}</td>
+                    <td>{{sal.updatedDate|date:'dd-MM-yyyy h:mm:ss'}}</td>
+                    <td>
+                        <div>
+                            <button type="button" class="btn btn-warning btn-sm me-2" title="Edit"
+                                (click)="Edit(sal)">Edit</button>
+                            <button type="button" class="btn btn-danger btn-sm pe-2" title="Delete" value="{{sal}}"
+                                (click)="Remove(sal)">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

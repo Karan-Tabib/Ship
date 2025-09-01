@@ -1,0 +1,82 @@
+<div>
+    <div>
+        <form [formGroup]="frm" (ngSubmit)="Add()">
+            <div class="row">
+                <div class="col-12 col-md-4"></div>
+                <div class="col-12 col-md-4 mt-2 myform">
+                    <h3 class="text-center">Add Fish Infomarion</h3>
+                    <div>
+                        <div class="form-group">
+                            <label>Fish Id</label>
+                            <input type="text" class="form-control" formControlName="fishId" />
+                            <div *ngIf="frm.controls['fishId']?.errors && false">
+                                <span class="text-danger">Fish Id is mandatory</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Fish Name</label>
+                            <input type="text" class="form-control" formControlName="fishName" />
+                            <div *ngIf="frm.controls['fishName']?.touched && frm.controls['fishName']?.errors">
+                                <span class="text-danger">Fish Name is mandatory</span>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="submit" class="btn btn-primary me-2 mt-2" value="Add Fish" />
+                            <input type="button" value="Update" class="btn btn-warning me-2 mt-2" (click)="update()" />
+                            <input type="button" value="Reset" class="btn btn-dark me-2 mt-2" (click)="resetForm()" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4">
+        <form class="d-flex align-items-center" [formGroup]="frmSearch" >
+            <input type="search" class="form-control me-2" placeholder="Search Fish" formControlName="searchControl"/>
+            <input type="button" value="Search" class="btn btn-primary" (click)="Search()" />
+        </form>
+    </div>
+    <div class="col-lg-4">
+    </div>
+    
+</div>
+<div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
+        <div class="table-responsive-lg ">
+            <table class="table table-warning table-bordered caption-top">
+                <caption><strong><b>List of fish</b></strong></caption>
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let fish of fishes |filterFish:searchText" class="table-secondary">
+                        <td>{{ fish.fishId }}</td>
+                        <td>{{ fish.fishName }}</td>
+                        <td>
+                            <div class="">
+                                <button type="button" class="btn btn-warning btn-sm me-2" title="Edit"
+                                    (click)="Edit(fish)">Edit</button>
+                                <button type="button" class="btn btn-danger btn-sm pe-2" title="Delete" value="{{fish}}"
+                                    (click)="Remove(fish)">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-3"></div>
+
+</div>

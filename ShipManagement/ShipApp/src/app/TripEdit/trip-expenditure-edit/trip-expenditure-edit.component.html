@@ -1,0 +1,35 @@
+<div class="container">
+    <form [formGroup]="frmExp" (ngSubmit)="AddTripExpenditures()">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Exp ID</th>
+                        <th>Trip ID</th>
+                        <th>Trip Date</th>
+                        <th>Reason</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody formArrayName="tripExpenditureDetails">
+                    <tr *ngFor="let exp of tripExpenditureDetails.controls; let i = index" [formGroupName]="i">
+                        <td><input type="text" class="form-control" formControlName="tripExpenditureId"></td>
+                        <td><input type="text" class="form-control" formControlName="tripId"></td>
+                        <td><input type="date" class="form-control" formControlName="tripDate"></td>
+                        <td><input type="text" class="form-control" formControlName="reason"></td>
+                        <td><input type="text" class="form-control" formControlName="amount"></td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm" (click)="removeRow(i)">Remove</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between mt-1">
+            <button type="button" class="btn btn-success btn-sm mb-1" (click)="addRow()">Add Row</button>
+            <button type="reset" class="btn btn-dark btn-sm">reset</button>
+        </div>
+    </form>
+</div>

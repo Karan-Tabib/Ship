@@ -1,0 +1,70 @@
+
+<div class="container">
+    <form [formGroup]="frm" (ngSubmit)="AddTripInformation()" class="d-flex flex-wrap align-items-center gap-3">
+
+        <!-- Trip ID -->
+        <div class="form-group flex-grow-1">
+            <label class="form-label">Trip ID</label>
+            <input type="text" class="form-control" formControlName="tripId" required>
+            <div *ngIf="frm.controls['tripId']?.touched && frm.controls['tripId']?.invalid" class="text-danger">
+                <span>Trip ID is required.</span>
+            </div>
+        </div>
+
+        <!-- Boat Name -->
+        <div class="form-group flex-grow-1">
+            <label class="form-label">Boat Name</label>
+            <select class="form-select" formControlName="boatId" aria-label="Select Boat" required>
+                <option value="" disabled selected>Select a boat</option>
+                <option *ngFor="let boat of boats$|async" [value]="boat.boatId">{{ boat.boatName }}</option>
+            </select>
+            <div *ngIf="frm.controls['boatId']?.touched && frm.controls['boatId']?.invalid" class="text-danger">
+                <span>Boat Name is mandatory.</span>
+            </div>
+        </div>
+
+        <!-- Trip Name -->
+        <div class="form-group flex-grow-1">
+            <label class="form-label">Trip Name</label>
+            <input type="text" class="form-control" formControlName="tripName" required>
+            <div *ngIf="frm.controls['tripName']?.touched && frm.controls['tripName']?.invalid" class="text-danger">
+                <span>Trip Name is required.</span>
+            </div>
+        </div>
+
+        <!-- Start Date -->
+        <div class="form-group flex-grow-1">
+            <label class="form-label">Start Date</label>
+            <input type="date" class="form-control" formControlName="tripStartDate" required>
+            <div *ngIf="frm.controls['tripStartDate']?.touched && frm.controls['tripStartDate']?.invalid" class="text-danger">
+                <span>Start Date is required.</span>
+            </div>
+        </div>
+
+        <!-- End Date -->
+        <div class="form-group flex-grow-1">
+            <label class="form-label">End Date</label>
+            <input type="date" class="form-control" formControlName="tripEndDate" required>
+            <div *ngIf="frm.controls['tripEndDate']?.touched && frm.controls['tripEndDate']?.invalid" class="text-danger">
+                <span>End Date is required.</span>
+            </div>
+        </div>
+
+        <!-- Trip Description -->
+        <div class="form-group flex-grow-1">
+            <label class="form-label">Trip Description</label>
+            <textarea class="form-control" rows="1" formControlName="tripDescription" required></textarea>
+            <div *ngIf="frm.controls['tripDescription']?.touched && frm.controls['tripDescription']?.invalid"
+                class="text-danger">
+                <span>Trip Description is required.</span>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="col-12  d-flex justify-content-end">
+            <!-- <button type="submit" class="btn btn-primary" [disabled]="frm.invalid">Submit</button> -->
+            <button type="reset" class="btn btn-dark btn-sm" (click)="resetForm()">Reset</button>
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,46 @@
+<div class="container">
+    <form [formGroup]="frm" (ngSubmit)="AddTripParticulars()">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Trip ID</th>
+                        <th>Trip Date</th>
+                        <th>Fish Name</th>
+                        <th>Rate Per Kg</th>
+                        <th>Total Weight</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody formArrayName="tripDetails">
+                    <tr *ngFor="let trip of tripDetails.controls; let i = index" [formGroupName]="i">
+                        <td><input type="text" class="form-control" formControlName="tripParticularId"></td>
+                        <td><input type="text" class="form-control" formControlName="tripId"></td>
+                        <td><input type="date" class="form-control" formControlName="tripDate"></td>
+                        <td>
+                            <select class="form-select" formControlName="fishId" aria-label="Select Fish Name">
+                                <option value="" disabled selected>Select a Fish</option>
+                                <option *ngFor="let fish of fishList" [value]="fish.fishId">
+                                    {{ fish.fishName }}
+                                </option>
+                            </select>
+                        </td>
+                        <td><input type="text" class="form-control" formControlName="ratePerKg"></td>
+                        <td><input type="text" class="form-control" formControlName="totalWeight"></td>
+                        <td><input type="text" class="form-control" formControlName="amount"></td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm" (click)="removeRow(i)">Remove</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between mt-1">
+            <button type="button" class="btn btn-success btn-sm" (click)="addRow()">Add Row</button>
+            <button type="reset" class="btn btn-dark btn-sm">Reset</button>
+        </div>
+    </form>
+</div>

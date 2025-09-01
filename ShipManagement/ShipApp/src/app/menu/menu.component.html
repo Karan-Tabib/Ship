@@ -1,0 +1,73 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" [routerLink]="['home']">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" routerLinkActive="active" [routerLink]="['home']">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" routerLinkActive="active" [routerLink]="['ship']">Ship</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" routerLinkActive="active" [routerLink]="['crew']">Crew</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Salary
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['Salary']">View All</a></li>
+            <li><a class="dropdown-item" [routerLink]="['SalaryParticulars']">View</a></li>
+            <!-- <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" [routerLink]="['ViewSalary']">Something else here</a></li> -->
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Leaves
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['Leaves']">View All</a></li>
+            <li><a class="dropdown-item" [routerLink]="['LeaveParticulars']">View</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" routerLinkActive="active" [routerLink]="['Fish']">Fish</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Trip
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['Trip']">View All</a></li>
+            <li><a class="dropdown-item" [routerLink]="['TripEdit']">Add</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link active" routerLinkActive="active" [routerLink]="['login']">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" routerLinkActive="active" [routerLink]="['signup']">Sign Up</a>
+        </li>
+        <li class="nav-link active">
+          <a class="button button-primary" routerLinkActive="active" (click)="logout()">Logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" routerLinkActive="active" [routerLink]="['AutoCompelete']">AutoComplete</a>
+        </li>
+        <li>
+          <img src="assets/user-avatar.png" class="rounded-circle avatar" alt="K">
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

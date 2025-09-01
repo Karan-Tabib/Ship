@@ -1,0 +1,35 @@
+<div class="login-wrapper">
+    <div class="login-card">
+        <h2 class="text-center">Welcome Back</h2>
+        <p class="text-center">Please log in to continue</p>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="email" formControlName="username" placeholder="Enter your email">
+                <small class="error" *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+                    Please enter a valid email
+                </small>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" formControlName="password" placeholder="Enter your password">
+                <small class="error" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                    Password must be at least 6 characters
+                </small>
+            </div>
+
+            <button type="submit" class="btn-login" [disabled]="loginForm.invalid">Login</button>
+
+            <div class="text-center mt-3">
+                <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+
+            <div class="text-center mt-3">
+                <span>Don't have an account?</span>
+                <a  (click)="redirectToSignUp()" class="signup-link">Sign Up</a>
+            </div>
+        </form>
+    </div>
+</div>

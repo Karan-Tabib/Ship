@@ -1,0 +1,36 @@
+# Ignore Visual Studio temporary files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+*.log
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+
+# Angular / Node
+node_modules/
+dist/
+build/
+npm-debug.log
+yarn-error.log
+
+# Database
+*.mdf
+*.ldf
+
+# Other
+*.DS_Store

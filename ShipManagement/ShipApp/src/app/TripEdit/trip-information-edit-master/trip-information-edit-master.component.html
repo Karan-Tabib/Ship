@@ -1,0 +1,42 @@
+<div class="container" style="background-color: rgba(173, 206, 168, 0.293);">
+    <fieldset>
+        <div>
+            <form [formGroup]="parentTripForm" (ngSubmit)="handleAddandUpdateForm()">
+                <div class="mt-1">
+                    <fieldset class="p-2">
+                        <legend>
+                            <h4>Add Trip Information</h4>
+                        </legend>
+                        <div>
+                            <app-trip-information-edit #tripInformationEditComponent [ChildEditTripId]="EditTripId"></app-trip-information-edit>
+                        </div>
+                    </fieldset>
+                </div>
+                <div>
+                    <fieldset>
+                        <legend>
+                            <h4>Add Trip Particulars</h4> 
+                        </legend>
+                        <div>
+                            <app-trip-particulars-edit #tripParticularsEditComponent></app-trip-particulars-edit>
+                        </div>
+                    </fieldset>
+                </div>
+                <div>
+                    <fieldset>
+                        <legend>
+                            <h4>Add Trip Expenditure</h4>
+                        </legend>
+                        <div>
+                            <app-trip-expenditure-edit #tripExpenditureEditComponent></app-trip-expenditure-edit>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" [disabled]="!parentTripForm.valid" class="btn btn-primary me-2 mb-2">Submit</button>
+                    <button type="reset" [disabled]="!parentTripForm.valid" class="btn btn-dark mb-2" (click)="ResetAllForm()">Reset</button>
+                </div>
+            </form>
+        </div>
+    </fieldset>
+</div>

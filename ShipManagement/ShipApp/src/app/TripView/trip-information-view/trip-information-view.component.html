@@ -1,0 +1,36 @@
+<div>
+    <div class="table-responsive">
+        <table class="table table-warning table-bordered caption-top">
+            <thead class="table-light">
+                <tr>
+                    <th>Trip ID</th>
+                    <th>Trip Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Trip Description</th>
+                    <th>Boat Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let trip of tripInformations" class="table-secondary" (click)="onRowSelect(trip.tripId)"
+                 [ngClass]="{ 'selected-row': trip.tripId === selectedTripId}">
+                    <td>{{ trip.tripId }}</td>
+                    <td>{{ trip.tripName }}</td>
+                    <td>{{ trip.tripStartDate | date: 'yyyy-MM-dd' }}</td>
+                    <td>{{ trip.tripEndDate | date: 'yyyy-MM-dd' }}</td>
+                    <td>{{ trip.tripDescription }}</td>
+                    <td>{{ getBoatName(trip.boatId)|async }}</td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-warning btn-sm" title="Edit"
+                                (click)="Edit($event, trip.tripId??0)">Edit</button>
+                            <button type="button" class="btn btn-danger btn-sm" title="Delete"
+                                (click)="Remove($event, trip.tripId ?? 0,trip.boatId??0)">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

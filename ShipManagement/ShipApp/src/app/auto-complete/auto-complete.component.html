@@ -1,0 +1,18 @@
+<div class="container row p-2" style="background-color: aliceblue;">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4">
+        <mat-form-field appearance="outline">
+            <mat-label>Search Fish</mat-label>
+            <input type="text" matInput [formControl]="searchControl" [matAutocomplete]="auto" class="form-control">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+    </div>
+    <div class="col-lg-4"></div>
+    
+</div>
+
+  

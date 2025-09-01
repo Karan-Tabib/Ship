@@ -1,0 +1,174 @@
+<div>
+    <div class="p-2">
+        <div class="myform">
+            <form [formGroup]="frm" (ngSubmit)="AddCrewMember()">
+                <h3 class="text-center mt-2">Add Crew</h3>
+                <div class="row">
+                    <div class="col-12 col-md-4">
+                        <div>
+                            <div class="form-group">
+                                <label>Crew Member ID</label>
+                                <input type="text" class="form-control" formControlName="crewId" />
+                                <div *ngIf="frm.controls['crewId']?.touched && frm.controls['crewId']?.errors">
+                                    <span class="text-danger">Crew Member ID is Mandatory.</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" formControlName="firstname" />
+                                <div *ngIf="frm.controls['firstname']?.touched && frm.controls['firstname']?.errors">
+                                    <span class="text-danger">First Name is Mandatory.</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Middle Name</label>
+                                <input type="text" class="form-control" formControlName="middlename" />
+                                <div *ngIf="frm.controls['middlename']?.touched && frm.controls['middlename']?.errors">
+                                    <span class="text-danger">Middle Name is Mandatory.</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" formControlName="lastname" />
+                                <div *ngIf=" frm.controls['lastname']?.touched && frm.controls['lastname']?.errors">
+                                    <span class="text-danger">Last Name is Mandatory.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div>
+                            <div>
+                                <label>Boat Name</label>
+                                <select class="form-select" formControlName="boatlist" aria-label="Select Boat">
+                                    <option *ngFor="let boat of boats$|async" [value]="boat.boatId">{{ boat.boatName }}
+                                    </option>
+                                </select>
+                                <div *ngIf="frm.controls['boatlist']?.touched && frm.controls['boatlist']?.errors">
+                                    <span class="text-danger">Boat Name is Mandatory.</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Gender</label>
+                                <select class="form-select" formControlName="gender" aria-label="Select Gender">
+                                    <option value="0">Male</option>
+                                    <option value="1">Female</option>
+                                </select>
+                                <div *ngIf="frm.controls['gender']?.touched && frm.controls['gender']?.errors">
+                                    <span class="text-danger">Gender is Mandatory.</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Date Of Birth</label>
+                                <input type="date" class="form-control" formControlName="dateofbirth" />
+                                <div
+                                    *ngIf="frm.controls['dateofbirth']?.touched && frm.controls['dateofbirth']?.errors">
+                                    <span class="text-danger">Date Of Birth is Mandatory.</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Mobile Number</label>
+                                <input type="tel" class="form-control" formControlName="mobileNumber"
+                                    pattern="[0-9]{10}" />
+                                <div
+                                    *ngIf="frm.controls['mobileNumber']?.touched && frm.controls['mobileNumber']?.errors">
+                                    <span class="text-danger">Mobile Number is Mandatory.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div>
+                            <div class="form-group">
+                                <label>Adhar Card Number</label>
+                                <input type="text" class="form-control" formControlName="adharNumber" />
+                                <div
+                                    *ngIf="frm.controls['adharNumber']?.touched && frm.controls['adharNumber']?.errors">
+                                    <span class="text-danger">Mobile Number is Mandatory.</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Address</label>
+                                <div class="form-floating">
+                                    <textarea class="form-control" formControlName="address" id="floatingTextarea2"
+                                        style="height: 100px"></textarea>
+                                    <label for="floatingTextarea2">Enter Address</label>
+                                    <div *ngIf="frm.controls['address']?.touched && frm.controls['address']?.errors">
+                                        <span class="text-danger">Address is Mandatory.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <input type="submit" class="btn btn-primary mt-3 me-3" value="Add Crew Member" />
+                        <input type="button" class="btn btn-warning mt-3 me-3" value="Update Crew Member"
+                            (click)="update()" />
+                        <input type="button" class="btn btn-dark me-3 mt-3" value="Reset" (click)="ResetForm()" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div>
+
+        </div>
+    </div>
+    <div>
+        <hr />
+    </div>
+    <div class="row">
+        <div class="col-md-3"> </div>
+        <div class="col-md-3">
+            <select class="form-select" [(ngModel)]="SelectedBoatId">
+                <option value=-1 selected="true">--Select--</option>
+                <option *ngFor="let boat of boats$|async" [value]="boat.boatId">{{boat.boatName}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="table-responsive-lg  table-sm">
+            <table class="table table-warning table-bordered caption-top">
+                <caption><strong><b>List of Boats</b></strong></caption>
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Surname</th>
+                        <th>Boat Name</th>
+                        <th>Gender</th>
+                        <th>DOB</th>
+                        <th>Address</th>
+                        <th>Mobile No</th>
+                        <th>Addhar No</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let crew of crews |filterByBoat:SelectedBoatId" class="table-secondary">
+                        <td>{{crew.crewID }}</td>
+                        <td>{{crew.firstname }}</td>
+                        <td>{{crew.middlename }}</td>
+                        <td>{{crew.lastname }}</td>
+                        <td>{{ getBoatName(crew.boatId)|async}}</td>
+                        <td>{{crew.gender }}</td>
+                        <td>{{crew.dob |date:'dd-MM-yyyy'}}</td>
+                        <td>{{crew.address }}</td>
+                        <td>{{crew.mobileNumber }}</td>
+                        <td>{{crew.adharNumber }}</td>
+                        <td>
+                            <div>
+                                <button type="button" class="btn btn-warning btn-sm me-2" title="Edit"
+                                    (click)="Edit(crew)">Edit</button>
+                                <button type="button" class="btn btn-danger btn-sm pe-2" title="Delete" value="{{crew}}"
+                                    (click)="Remove(crew)">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

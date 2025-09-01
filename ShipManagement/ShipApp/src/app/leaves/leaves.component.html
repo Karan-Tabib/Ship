@@ -1,0 +1,120 @@
+<div style="margin-top: 15px;">
+    <form [formGroup]="frm" (ngSubmit)="AddLeave()">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 myform">
+                <h3 class="text-center mt-2">Add Leaves</h3>
+                <div class="form-group" *ngIf="isVisible()">
+                    <label>ID</label>
+                    <input type="Text" class="form-control" formControlName="Id" />
+                    <div *ngIf="frm.controls['Id']?.touched && frm.controls['Id']?.errors">
+                        <span class="text-danger"> Id is Invalid.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Crew Member</label>
+                    <select class="form-select" formControlName="CrewMembers">
+                        <option value="-1" selected="true">--Select--</option>
+                        <option *ngFor="let crewinfo of crewMembers" [value]="crewinfo.crewID">
+                            {{ crewinfo.firstname + " " + crewinfo.middlename + " " + crewinfo.lastname }}
+                        </option>
+                    </select>
+                    <div *ngIf="frm.controls['CrewMembers']?.touched && frm.controls['CrewMembers']?.errors">
+                        <span class="text-danger"> select Crew Member!</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>For Year</label>
+                    <select class="form-select" formControlName="ForYear">
+                        <option value="-1" selected="true">--Select--</option>
+                        <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                    </select>
+                    <div *ngIf="frm.controls['ForYear']?.touched && frm.controls['ForYear']?.errors">
+                        <span class="text-danger"> select Start!</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Total Leaves for year</label>
+                    <input type="Text" class="form-control" formControlName="TotalLeaves" />
+                    <div *ngIf="frm.controls['TotalLeaves']?.touched && frm.controls['TotalLeaves']?.errors">
+                        <span class="text-danger"> Enter Total Salary!</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Start Date</label>
+                    <input type="date" class="form-control" formControlName="startDate" />
+                    <div *ngIf="frm.controls['startDate']?.touched && frm.controls['startDate']?.errors">
+                        <span class="text-danger"> select Start Date.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>End Date</label>
+                    <input type="date" class="form-control" formControlName="endDate">
+                    <div *ngIf="frm.controls['endDate']?.touched && frm.controls['endDate']?.errors">
+                        <span class="text-danger"> select End Date.</span>
+                    </div>
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-primary mt-3 me-3" value="Add Leave" />
+                    <button type="button" class="btn btn-warning mt-3 me-3" value="Update Leave"
+                        (click)="UpdateLeave()">Update Leave</button>
+                    <button type="button" class="btn btn-dark me-3 mt-3" value="Reset"
+                        (click)="ResetForm()">Reset</button>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+<div>
+    <hr />
+</div>
+<div class="row p-2" style="background-color: rgb(245, 243, 225);">
+    <div class="col-md-3"> </div>
+    <div class="col-md-3">
+        <select class="form-select" [(ngModel)]="SelectedBoatId">
+            <option value=-1 selected="true">--Select--</option>
+            <option *ngFor="let boat of boats$|async" [value]="boat.boatId">{{boat.boatName}}</option>
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="table-responsive-lg ">
+        <table class="table table-warning table-bordered caption-top">
+            <caption><strong><b>List of Salary Information</b></strong></caption>
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Total Yearly Leaves</th>
+                    <th>For Year</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let leave of LeavesDetails |filterByBoat:SelectedBoatId" class="table-secondary">
+                    <td>{{leave.leaveId }}</td>
+                    <td>{{ getCrewMemberName(leave.crewId)}}</td>
+                    <td>{{leave.totalLeaves }}</td>
+                    <td>{{leave.forYear }}</td>
+                    <td>{{leave.startDate |date:'dd-MM-yyyy'}}</td>
+                    <td>{{leave.endDate|date:'dd-MM-yyyy'}}</td>
+                    <td>
+                        <div>
+                            <button type="button" class="btn btn-warning btn-sm me-2" title="Edit"
+                                (click)="Edit(leave)">Edit</button>
+                                <button type="button" class="btn btn-primary btn-sm pe-2 me-2" title="View" value="{{leave}}"
+                                (click)="View(leave)">View</button>
+                            <button type="button" class="btn btn-danger btn-sm pe-2" title="Delete" value="{{leave}}"
+                                (click)="Remove(leave)">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

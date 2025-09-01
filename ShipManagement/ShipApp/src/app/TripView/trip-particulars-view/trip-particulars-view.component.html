@@ -1,0 +1,30 @@
+<div>
+    <div class="table-responsive-lg  table-sm">
+        <table class="table table-warning table-bordered caption-top">
+            <thead class="table-light">
+                <tr>
+                    <th>Trip ID</th>
+                    <th>Trip Date</th>
+                    <th>FishName</th>
+                    <th>RatePerKg</th>
+                    <th>TotalWeight</th>
+                    <th>Amount</th>
+                    <th>CreatedDate</th>
+                    <th>UpdatedDate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let Particulars of tripParticulars" class="table-secondary">
+                    <td>{{Particulars.tripId }}</td>
+                    <td>{{Particulars.tripDate |date:'dd-MM-yyyy' }}</td>
+                    <td>{{getFishName(Particulars.fishId)}}</td>
+                    <td>{{Particulars.ratePerKg }}</td>
+                    <td>{{Particulars.totalWeight }}</td>
+                    <td>{{Particulars.amount }}</td>
+                    <td>{{Particulars.createdDate |date:'dd-MM-yyyy' }}</td>
+                    <td>{{Particulars.updatedDate |date:'dd-MM-yyyy'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

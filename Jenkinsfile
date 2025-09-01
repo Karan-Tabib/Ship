@@ -1,21 +1,69 @@
 pipeline {
     agent any
+
     stages {
-        stage('Build Web API') {
+        stage('Checkout') {
             steps {
-                dir('ShipmanagementAPI/ShipAPI') {
-                     sh 'dotnet restore ShipAPI.csproj'
-					 sh 'dotnet build ShipAPI.csproj -c Release'
-                }
+                checkout scm
             }
         }
-        stage('Build Angular') {
+
+        stage('Install Dependencies') {
             steps {
                 dir('ShipManagement/ShipApp') {
                     sh 'npm install'
-                    sh 'ng build --configuration production'
                 }
             }
+        }
+
+        stage('Lint') {
+            steps {
+                dir('ShipManagement/ShipApp') {
+                    sh 'npm run lint'
+                }
+            }
+        }
+
+        stage('Unit Tests') {
+            steps {
+                dir('ShipManagement/ShipApp') {
+                    sh 'npm test'
+                }
+            }
+            post {
+                always {
+                    junit '**/test-results/**/*.xml' // if your tests generate JUnit-style reports
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                dir('ShipManagement/ShipApp') {
+                    sh 'npm run build'
+                }
+            }
+        }
+
+        stage('Deployment') {
+            steps {
+                dir('ShipManagement/ShipApp') {
+                    // Example: copy build files to server or deploy using CLI
+                    sh '''
+                    echo "Deploying application..."
+                    # Example: scp -r dist/ user@server:/var/www/app/
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
         }
     }
 }

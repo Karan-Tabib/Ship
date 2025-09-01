@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Build Angular') {
             steps {
-                dir('Shipmanagement') {
+                dir('Shipmanagement/ShipApp') {
                     sh 'npm install'
                     sh 'ng build --configuration production'
                 }
